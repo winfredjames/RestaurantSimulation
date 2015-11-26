@@ -81,8 +81,11 @@ public class Main {
 
         while(t.getTime()<120){
             while(diners.get(i).entryTime==t.getTime()){
-
+                if(tb.find()>=0) {
+                    tb.setTable(tb.find());
+                }
             }
+            i++;
         }
 
         Cook c = new Cook();
