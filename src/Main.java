@@ -10,26 +10,7 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-class Diner {
 
-    int id;
-    int entryTime;
-    int burger;
-    int fries;
-    int coke;
-    int icecream;
-    int totalTime;
-
-    public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream) {
-        this.id = id;
-        this.entryTime = entryTime;
-        this.burger = burger;
-        this.fries = fries;
-        this.coke = coke;
-        this.icecream = icecream;
-        this.totalTime = (burger * 5) + (fries * 3) + (coke * 2) + icecream;
-    }
-}
 
 public class Main {
 
@@ -59,6 +40,26 @@ public class Main {
         }
 
     }
+    static class Diner {
+
+        int id;
+        int entryTime;
+        int burger;
+        int fries;
+        int coke;
+        int icecream;
+        int totalTime;
+
+        public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream) {
+            this.id = id;
+            this.entryTime = entryTime;
+            this.burger = burger;
+            this.fries = fries;
+            this.coke = coke;
+            this.icecream = icecream;
+            this.totalTime = (burger * 5) + (fries * 3) + (coke * 2) + icecream;
+        }
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -74,13 +75,19 @@ public class Main {
         }
         Timer t = new Timer();
         t.start();
-        System.out.println(t.getTime());
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Table tb = new Table(noOfTables);
+        tb.start();
+        int i = 0;
+
+        while(t.getTime()<120){
+            while(diners.get(i).entryTime==t.getTime()){
+
+            }
         }
+
         Cook c = new Cook();
 
     }
+
+
 }
