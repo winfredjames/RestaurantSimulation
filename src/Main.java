@@ -61,7 +61,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 
         InputReader in = new InputReader();
         Vector<Diner> diners = new Vector<Diner>();
@@ -80,10 +80,8 @@ public class Main {
         int i = 0;
 
         while(t.getTime()<120){
-            while(diners.get(i).entryTime==t.getTime()){
-                if(tb.find()>=0) {
+            if(diners.get(i).entryTime==t.getTime()){
                     tb.setTable(tb.find());
-                }
             }
             i++;
         }
