@@ -11,7 +11,6 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 
-
 public class Main {
 
     static class InputReader {
@@ -77,16 +76,17 @@ public class Main {
         t.start();
         Table tb = new Table(noOfTables);
         tb.start();
+        Cook c = new Cook(noOfCooks,tb);
+        c.start();
+
         int i = 0;
 
-        while(t.getTime()<120){
+        while(t.getTime()<120 && i<noOfDinners){
             if(diners.get(i).entryTime==t.getTime()){
-                    tb.setTable(tb.find());
+                    tb.setTable(tb.find(),i);
             }
             i++;
         }
-
-        Cook c = new Cook();
 
     }
 
