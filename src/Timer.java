@@ -3,7 +3,20 @@
  * Created by winfredjames on 11/25/15.
  */
 public class Timer extends Thread {
-    public static int time = 1;
+    private static int time = 1;
+    private static Timer timer;
+
+    private Timer(){
+
+    }
+
+    public static Timer getInstance(){
+        if(timer == null){
+            timer  = new Timer();
+        }
+
+        return timer;
+    }
 
     public void run() {
         try {

@@ -10,7 +10,29 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+ class Diner {
 
+    int id;
+    int entryTime;
+    int burger;
+    int fries;
+    int coke;
+    int icecream;
+    int totalTime;
+
+
+    public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream) {
+        this.id = id;
+        this.entryTime = entryTime;
+        this.burger = burger;
+        this.fries = fries;
+        this.coke = coke;
+        this.icecream = icecream;
+        this.totalTime = (burger * 5) + (fries * 3) + (coke * 2) + icecream;
+    }
+
+
+}
 public class Main {
 
     static class InputReader {
@@ -39,26 +61,7 @@ public class Main {
         }
 
     }
-    static class Diner {
 
-        int id;
-        int entryTime;
-        int burger;
-        int fries;
-        int coke;
-        int icecream;
-        int totalTime;
-
-        public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream) {
-            this.id = id;
-            this.entryTime = entryTime;
-            this.burger = burger;
-            this.fries = fries;
-            this.coke = coke;
-            this.icecream = icecream;
-            this.totalTime = (burger * 5) + (fries * 3) + (coke * 2) + icecream;
-        }
-    }
 
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 
@@ -72,15 +75,19 @@ public class Main {
         while (tempDinners-- > 0) {
             diners.addElement(new Diner(id++, in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt()));
         }
-        Timer t = new Timer();
+        Timer t = Timer.getInstance();
         t.start();
-        Table tb = new Table(noOfTables);
+        Table tb = new Table(noOfTables,diners);
         tb.start();
-        Cook c = new Cook(noOfCooks,tb);
-        c.start();
+
+        Cook c;
+        int idx=0;
+        for(int i=0 ;i < noOfCooks; i++){
+            c = new Cook(noOfCooks,tb,idx++,diners);
+            c.start();
+        }
 
         int i = 0;
-
         while(t.getTime()<120 && i<noOfDinners){
             if(diners.get(i).entryTime==t.getTime()){
                     tb.setTable(tb.find(),i);
