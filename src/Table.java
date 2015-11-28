@@ -2,6 +2,7 @@
  * Created by winfredjames on 11/26/15.
  */
 
+import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -64,7 +65,7 @@ public class Table extends Thread {
             if (!tables[i].presence) {
                 tables[i].presence = true;
                 tables[i].id = id;
-                QueueA.getInstance().add(new CookTime(id,diner.get(id).totalTime));
+                QueueA.getInstance().add(new CookTime(id,diner.get(id).totalTime,false));
                 break;
             }
         }
@@ -87,10 +88,12 @@ class CookTime implements Comparable<CookTime>{
 
     int diner_id;
     int time;
+    boolean busy;
 
-    public CookTime(int diner_id,int time){
+    public CookTime(int diner_id,int time,boolean busy){
         this.diner_id = diner_id;
         this.time = time;
+        this.busy = busy;
     }
 
     @Override
@@ -124,6 +127,7 @@ class Cook extends Thread {
     public  Table tb;
     public int idx;
     public Vector<Diner> diner;
+    public boolean isBusy;
 
     public Cook(int noCooks, Table tb, int idx,Vector<Diner> diner) {
         this.idx = idx;
@@ -133,14 +137,56 @@ class Cook extends Thread {
     }
 
     public void run() {
-        cookIt();
+        try {
+            cookIt();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public synchronized void cookIt(){
+    public synchronized void cookIt() throws InterruptedException {
         while(Timer.getInstance().getTime()<120){
+
             if(!QueueA.getInstance().isEmpty()){
-                
+                    CookTime c = (CookTime) QueueA.getInstance().poll();
+                    if(!c.busy){
+                        BurgerMachine.getInstance().cook((int)c.diner_id);
+                    }
             }
+
         }
+    }
+}
+
+class BurgerMachine extends Thread{
+
+    private boolean working;
+
+    private static BurgerMachine burgerMachine;
+
+    private BurgerMachine(){
+
+    }
+
+    public static BurgerMachine getInstance(){
+        if(burgerMachine == null){
+            burgerMachine = new BurgerMachine();
+        }
+
+        return burgerMachine;
+    }
+
+    public synchronized void cook(int id) throws InterruptedException {
+            while(working){
+                wait();
+            }
+            working = true;
+            System.out.println("cooking burger for " + (id+1) +  " at "+ Timer.getInstance().getTime());
+            while(Timer.getInstance().getTime()+5> Timer.getInstance().getTime()){
+                Thread.sleep(0);
+            }
+            working=false;
+            notifyAll();
+
     }
 }
