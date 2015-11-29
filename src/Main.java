@@ -10,29 +10,6 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
- class Diner {
-
-    int id;
-    int entryTime;
-    int burger;
-    int fries;
-    int coke;
-    int icecream;
-    int totalTime;
-
-
-    public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream) {
-        this.id = id;
-        this.entryTime = entryTime;
-        this.burger = burger;
-        this.fries = fries;
-        this.coke = coke;
-        this.icecream = icecream;
-        this.totalTime = (burger * 5) + (fries * 3) + (coke * 2) + icecream;
-    }
-
-
-}
 public class Main {
 
     static class InputReader {
@@ -67,18 +44,23 @@ public class Main {
 
         InputReader in = new InputReader();
         Vector<Diner> diners = new Vector<Diner>();
+        Vector<DinerStatus> dinerStatus = new Vector<>();
         int noOfDinners = in.nextInt();
         int tempDinners = noOfDinners;
         int noOfTables = in.nextInt();
         int noOfCooks = in.nextInt();
         int id = 0;
+        Table tb = new Table(noOfTables);
+
+
         while (tempDinners-- > 0) {
-            diners.addElement(new Diner(id++, in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt()));
+            diners.addElement(new Diner(id++, in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), tb));
         }
+
+        tb.start();
+
         Timer t = Timer.getInstance();
         t.start();
-        Table tb = new Table(noOfTables,diners);
-        tb.start();
 
         Cook c;
         int idx=0;
@@ -90,7 +72,7 @@ public class Main {
         int i = 0;
         while(t.getTime()<120 && i<noOfDinners){
             if(diners.get(i).entryTime==t.getTime()){
-                    tb.setTable(tb.find(),i);
+                diners.get(i).start();
             }
             i++;
         }

@@ -2,7 +2,6 @@
  * Created by winfredjames on 11/26/15.
  */
 
-import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -18,18 +17,17 @@ class TablePerson {
 
 public class Table extends Thread {
 
-    public Vector<Diner> diner;
     public static volatile TablePerson[] tables;
     public int noOfTables;
     public static boolean ready = true;
     public Queue<Integer> queue = new LinkedList<Integer>();
 
-    public Table(int noOfTables,Vector<Diner> diner) {
+    public Table(int noOfTables) {
         this.noOfTables = noOfTables;
         tables = new TablePerson[noOfTables];
-        this.diner = diner;
+
         for (int i = 0; i < noOfTables; i++) {
-            tables[i] = new TablePerson(-1, false);
+            tables[i] = new TablePerson(i+1, false);
         }
     }
 
@@ -44,42 +42,25 @@ public class Table extends Thread {
 
     public synchronized int find_no() {
         for (int i = 0; i < noOfTables; i++) {
-            if (tables[i].presence) {
+            if (!tables[i].presence) {
+                tables[i].presence=true;
                 return i;
             }
         }
         return -1;
     }
 
-    public synchronized void setTable(boolean place, int id) throws InterruptedException {
-
-        queue.add(id);
-
-        while (!place && ready) {
+    public synchronized TablePerson setTable(int id) throws InterruptedException {
+        int idx = find_no();
+        while(find_no()==-1){
             wait();
         }
-        if (!queue.isEmpty()) {
-            id = queue.remove();
-        }
-        for (int i = 0; i < noOfTables; i++) {
-            if (!tables[i].presence) {
-                tables[i].presence = true;
-                tables[i].id = id;
-                QueueA.getInstance().add(new CookTime(id,diner.get(id).totalTime,false));
-                break;
-            }
-        }
-        ready = true;
+        return tables[idx];
+
     }
 
-    public synchronized void releaseTable() {
-        for (int i = 0; i < noOfTables; i++) {
-            if (tables[i].presence) {
-                tables[i].presence = false;
-                tables[i].id=-1;
-            }
-        }
-        ready = false;
+    public synchronized void releaseTable(TablePerson id){
+        id.presence=false;
         notifyAll();
     }
 
