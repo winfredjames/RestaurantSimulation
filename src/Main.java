@@ -43,7 +43,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 
         InputReader in = new InputReader();
-        Vector<Diner> diners = new Vector<Diner>();
+        Vector<Diner> dinersInfo = new Vector<Diner>();
         Vector<DinerStatus> dinerStatus = new Vector<>();
         int noOfDinners = in.nextInt();
         int tempDinners = noOfDinners;
@@ -52,27 +52,37 @@ public class Main {
         int id = 0;
         Table tb = new Table(noOfTables);
 
-
         while (tempDinners-- > 0) {
-            diners.addElement(new Diner(id++, in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), tb));
+            dinersInfo.addElement(new Diner(id++, in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), in.nextInt(), tb,false));
+
         }
 
         tb.start();
 
-        Timer t = Timer.getInstance();
-        t.start();
+
 
         Cook c;
         int idx=0;
         for(int i=0 ;i < noOfCooks; i++){
-            c = new Cook(noOfCooks,tb,idx++,diners);
+            c = new Cook(noOfCooks,tb,idx++,dinersInfo);
             c.start();
+        }
+
+
+        Timer t = Timer.getInstance();
+        t.start();
+
+        Start[] s = new Start[noOfDinners];
+
+        for(int i=0;i<noOfDinners;i++){
+            
         }
 
         int i = 0;
         while(t.getTime()<120 && i<noOfDinners){
-            if(diners.get(i).entryTime==t.getTime()){
-                diners.get(i).start();
+            if(dinersInfo.get(i).entryTime==t.getTime()){
+                Start s = new Start(dinersInfo.get(i),dinersInfo.get(i).id,tb);
+                s.start();
             }
             i++;
         }

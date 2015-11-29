@@ -1,7 +1,10 @@
+import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
+
 /**
  * Created by winfredjames on 11/27/15.
  */
-public class Diner extends Thread{
+public class Diner implements Comparable<Diner>{
 
     int id;
     int entryTime;
@@ -10,11 +13,11 @@ public class Diner extends Thread{
     int coke;
     int icecream;
     int totalTime;
-    Table tb;
-    int tableno;
+    boolean busy;
 
 
-    public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream, Table tb) {
+
+    public Diner(int id, int entryTime, int burger, int fries, int coke, int icecream, Table tb,boolean busy) {
         this.id = id;
         this.entryTime = entryTime;
         this.burger = burger;
@@ -22,24 +25,33 @@ public class Diner extends Thread{
         this.coke = coke;
         this.icecream = icecream;
         this.totalTime = (burger * 5) + (fries * 3) + (coke * 2) + icecream;
-        this.tb = tb;
-    }
-
-    public void run(){
-
-        System.out.println("Diner " + id +" enters the restaurant" );
-
-        try {
-           tableno = tb.setTable(id);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
+        this.busy=false;
 
     }
 
-    private void findtable() {
+    @Override
+    public int compareTo(Diner o) {
+        return Integer.compare(this.totalTime,o.totalTime);
+    }
 
+    @Override
+    public boolean equals(Object o){
+        Diner d = (Diner) o;
+        return Integer.compare(this.id,d.id)==0;
     }
 }
+
+
+class QueueA{
+    private static PriorityQueue<Diner> pq;
+    private QueueA(){
+
+    }
+    public static PriorityQueue getInstance(){
+        if(pq == null){
+            pq  = new PriorityQueue<Diner>();
+        }
+        return pq;
+    }
+}
+
