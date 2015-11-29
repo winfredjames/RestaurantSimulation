@@ -64,7 +64,7 @@ public class Main {
         Cook c;
         int idx=0;
         for(int i=0 ;i < noOfCooks; i++){
-            c = new Cook(noOfCooks,tb,idx++,dinersInfo);
+            c = new Cook(noOfCooks);
             c.start();
         }
 
@@ -75,16 +75,16 @@ public class Main {
         Start[] s = new Start[noOfDinners];
 
         for(int i=0;i<noOfDinners;i++){
-            
+            s[i] = new Start(dinersInfo.get(i),dinersInfo.get(i).id,tb);
         }
 
         int i = 0;
         while(t.getTime()<120 && i<noOfDinners){
             if(dinersInfo.get(i).entryTime==t.getTime()){
-                Start s = new Start(dinersInfo.get(i),dinersInfo.get(i).id,tb);
-                s.start();
+                s[i].start();
+                i++;
             }
-            i++;
+
         }
 
     }

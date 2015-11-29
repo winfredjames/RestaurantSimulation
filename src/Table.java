@@ -27,7 +27,7 @@ public class Table extends Thread {
         tables = new TablePerson[noOfTables];
 
         for (int i = 0; i < noOfTables; i++) {
-            tables[i] = new TablePerson(i+1, false);
+            tables[i] = new TablePerson(i, false);
         }
     }
 
@@ -50,9 +50,10 @@ public class Table extends Thread {
         return -1;
     }
 
-    public synchronized TablePerson setTable(int id) throws InterruptedException {
+    public synchronized TablePerson setTable() throws InterruptedException {
         int idx = find_no();
-        while(find_no()==-1){
+
+        while(idx==-1){
             wait();
         }
         return tables[idx];

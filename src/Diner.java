@@ -42,16 +42,5 @@ public class Diner implements Comparable<Diner>{
 }
 
 
-class QueueA{
-    private static PriorityQueue<Diner> pq;
-    private QueueA(){
 
-    }
-    public static PriorityQueue getInstance(){
-        if(pq == null){
-            pq  = new PriorityQueue<Diner>();
-        }
-        return pq;
-    }
-}
 

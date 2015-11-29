@@ -24,7 +24,7 @@ public class BurgerMachine extends Thread{
             wait();
         }
         working = true;
-        System.out.println("cooking burger for " + (id+1) +  " at "+ Timer.getInstance().getTime());
+        System.out.println("cooking burger for " + (id+1) +  " at time "+ Timer.getInstance().getTime());
         while(Timer.getInstance().getTime()+5> Timer.getInstance().getTime()){
             Thread.sleep(0);
         }

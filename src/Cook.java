@@ -10,13 +10,9 @@ public class Cook extends Thread {
     public Table tb;
     public int idx;
     public Vector<Diner> diner;
-    public boolean isBusy;
 
-    public Cook(int noCooks, Table tb, int idx, Vector<Diner> diner) {
+    public Cook(int noCooks) {
         this.idx = idx;
-        this.noCooks = noCooks;
-        this.tb = tb;
-        this.diner = diner;
     }
 
     public void run() {
@@ -29,13 +25,13 @@ public class Cook extends Thread {
 
     public synchronized void cookIt() throws InterruptedException {
         while (Timer.getInstance().getTime() < 120) {
-            Thread.sleep(1000);
-            if (!QueueA.getInstance().isEmpty()) {
-                Diner d = (Diner) QueueA.getInstance().poll();
-                BurgerMachine.getInstance().cook(d.id,d);
+
+                Diner d = QueueA.getInstance().check();
+                BurgerMachine.getInstance().cook(d.id, d);
 
             }
 
         }
     }
-}
+
+

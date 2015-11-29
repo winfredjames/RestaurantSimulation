@@ -19,12 +19,12 @@ public class Start extends Thread {
         System.out.println("Diner " + id +" enters the restaurant" );
 
         try {
-            tp = tb.setTable(id);
+            tp = tb.setTable();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        QueueA.getInstance().add(d);
+        QueueA.getInstance().addDiner(d);
 
     }
 
