@@ -12,7 +12,7 @@ public class QueueA {
     public QueueA(){
         pq = new PriorityQueue<>();
     }
-    public static QueueA getInstance(){
+    public static synchronized QueueA getInstance(){
         if(queueA == null){
             queueA  = new QueueA();
         }

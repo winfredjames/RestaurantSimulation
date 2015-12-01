@@ -11,7 +11,7 @@ public class BurgerMachine extends Thread{
 
     }
 
-    public static BurgerMachine getInstance(){
+    public static synchronized BurgerMachine getInstance(){
         if(burgerMachine == null){
             burgerMachine = new BurgerMachine();
         }
@@ -46,7 +46,7 @@ class FriesMachine extends Thread{
 
     }
 
-    public static FriesMachine getInstance(){
+    public static synchronized FriesMachine getInstance(){
         if(friesMachine == null){
             friesMachine = new FriesMachine();
         }
@@ -80,7 +80,7 @@ class CokeMachine extends Thread{
 
     }
 
-    public static CokeMachine getInstance(){
+    public static synchronized CokeMachine getInstance(){
         if(cokeMachine == null){
             cokeMachine = new CokeMachine();
         }
@@ -115,7 +115,7 @@ class IceCreamMachine extends Thread{
 
     }
 
-    public static IceCreamMachine getInstance(){
+    public static synchronized IceCreamMachine getInstance(){
         if(iceCreamMachine == null){
             iceCreamMachine = new IceCreamMachine();
         }

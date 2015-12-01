@@ -10,6 +10,7 @@ public class Cook extends Thread {
     public Table tb;
     public int idx;
     public Vector<Diner> diner;
+    public boolean working;
 
     public Cook(int noCooks) {
         this.idx = idx;
@@ -25,12 +26,12 @@ public class Cook extends Thread {
 
     public void cookIt(int i) throws InterruptedException {
 
+
         while (Timer.getInstance().getTime() < 120) {
 
             Diner d = QueueA.getInstance().check();
 
             if (d.burger > 0) {
-            //    System.out.println("********************" + i);
                 try {
                     BurgerMachine.getInstance().cook(d.id, d);
                 } catch (InterruptedException e) {
@@ -38,13 +39,13 @@ public class Cook extends Thread {
                 }
             }
             if (d.fries > 0) {
-           //     System.out.println("********************" + i);
                 try {
                     FriesMachine.getInstance().cook(d.id, d);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+
             if (d.coke > 0) {
                 try {
                     CokeMachine.getInstance().cook(d.id, d);
@@ -65,6 +66,8 @@ public class Cook extends Thread {
                 d.busy = true;
                 d.notify();
             }
+
+
 
         }
     }
