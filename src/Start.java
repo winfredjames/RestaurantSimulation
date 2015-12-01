@@ -18,7 +18,7 @@ public class Start extends Thread {
     }
 
     public synchronized void run() {
-        System.out.println("Diner  " + id + " enters the restaurant");
+        System.out.println("Diner  " + id + " enters the restaurant at time " + Timer.getInstance().getTime());
 
         try {
             tp = tb.setTable();
@@ -48,7 +48,7 @@ public class Start extends Thread {
             }
         }
 
-        System.out.println("Diner " + d.id + " finishes eating and leaves the restaurant at " + Timer.getInstance().getTime());
+        System.out.println("Diner " + d.id + " finishes eating and leaves the restaurant at time " + Timer.getInstance().getTime());
 
         tb.releaseTable(tp);
 

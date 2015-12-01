@@ -6,13 +6,13 @@ public class Timer extends Thread {
     private static int time = 1;
     private static Timer timer;
 
-    private Timer(){
+    private Timer() {
 
     }
 
-    public static Timer getInstance(){
-        if(timer == null){
-            timer  = new Timer();
+    public static Timer getInstance() {
+        if (timer == null) {
+            timer = new Timer();
         }
 
         return timer;
@@ -20,7 +20,7 @@ public class Timer extends Thread {
 
     public void run() {
         try {
-            while(true) {
+            while (true) {
                 Thread.sleep(100);
                 this.time++;
             }
@@ -29,7 +29,7 @@ public class Timer extends Thread {
         }
     }
 
-    public int getTime(){
+    public int getTime() {
         return time;
     }
 }

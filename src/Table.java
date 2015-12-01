@@ -3,7 +3,7 @@
  */
 
 import java.util.*;
-import java.util.concurrent.PriorityBlockingQueue;
+
 class TablePerson {
     int id;
     boolean presence;
@@ -18,8 +18,6 @@ public class Table extends Thread {
 
     public static TablePerson[] tables;
     public int noOfTables;
-    public static boolean ready = true;
-    public Queue<Integer> queue = new LinkedList<Integer>();
 
     public Table(int noOfTables) {
         this.noOfTables = noOfTables;
