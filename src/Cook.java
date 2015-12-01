@@ -23,15 +23,32 @@ public class Cook extends Thread {
         }
     }
 
-    public synchronized void cookIt() throws InterruptedException {
+    public void cookIt() throws InterruptedException {
+
         while (Timer.getInstance().getTime() < 120) {
 
-                Diner d = QueueA.getInstance().check();
-                BurgerMachine.getInstance().cook(d.id, d);
+            Diner d = QueueA.getInstance().check();
 
+            if (d.burger > 0) {
+                try {
+                    BurgerMachine.getInstance().cook(d.id, d);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            synchronized (d) {
+                System.out.println("Order is complete for Diner " + d.id + " at " + Timer.getInstance().getTime());
+                d.busy = true;
+                d.notify();
             }
 
         }
     }
+    public void makefood(Diner d) {
+
+
+        }
+    }
+
 
 

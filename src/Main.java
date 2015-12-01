@@ -10,6 +10,13 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+class DinerStatus {
+
+    public Diner diner;
+    public Table tb;
+
+}
+
 public class Main {
 
     static class InputReader {
@@ -57,6 +64,7 @@ public class Main {
 
         }
 
+
         tb.start();
 
 
@@ -79,7 +87,7 @@ public class Main {
         }
 
         int i = 0;
-        while(t.getTime()<120 && i<noOfDinners){
+        while(Timer.getInstance().getTime()<120 && i<noOfDinners){
             if(dinersInfo.get(i).entryTime==t.getTime()){
                 s[i].start();
                 i++;
@@ -87,6 +95,11 @@ public class Main {
 
         }
 
+        while(Timer.getInstance().getTime()<120){
+
+        }
+
+        System.exit(0);
     }
 
 

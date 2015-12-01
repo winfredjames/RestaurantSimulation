@@ -1,5 +1,5 @@
 /**
- * Created by winfredjames on 11/29/15.
+ * Created by winfred james on 11/29/15.
  */
 public class BurgerMachine extends Thread{
 
@@ -24,8 +24,9 @@ public class BurgerMachine extends Thread{
             wait();
         }
         working = true;
-        System.out.println("cooking burger for " + (id+1) +  " at time "+ Timer.getInstance().getTime());
-        while(Timer.getInstance().getTime()+5> Timer.getInstance().getTime()){
+        System.out.println("cooking burger for " + (id) +  " at time "+ Timer.getInstance().getTime());
+        int total = Timer.getInstance().getTime();
+        while(total + (5*d.burger)> Timer.getInstance().getTime()){
             Thread.sleep(0);
         }
         working=false;

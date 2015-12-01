@@ -4,7 +4,6 @@
 
 import java.util.*;
 import java.util.concurrent.PriorityBlockingQueue;
-
 class TablePerson {
     int id;
     boolean presence;
@@ -17,7 +16,7 @@ class TablePerson {
 
 public class Table extends Thread {
 
-    public static volatile TablePerson[] tables;
+    public static TablePerson[] tables;
     public int noOfTables;
     public static boolean ready = true;
     public Queue<Integer> queue = new LinkedList<Integer>();
@@ -31,7 +30,7 @@ public class Table extends Thread {
         }
     }
 
-    public synchronized boolean find() {
+    public boolean find() {
         for (int i = 0; i < noOfTables; i++) {
             if (!tables[i].presence) {
                 return true;
@@ -40,10 +39,10 @@ public class Table extends Thread {
         return false;
     }
 
-    public synchronized int find_no() {
+    public int find_no() {
         for (int i = 0; i < noOfTables; i++) {
             if (!tables[i].presence) {
-                tables[i].presence=true;
+                tables[i].presence = true;
                 return i;
             }
         }
@@ -53,16 +52,17 @@ public class Table extends Thread {
     public synchronized TablePerson setTable() throws InterruptedException {
         int idx = find_no();
 
-        while(idx==-1){
+        while (idx == -1) {
             wait();
+            idx = find_no();
         }
         return tables[idx];
-
     }
 
-    public synchronized void releaseTable(TablePerson id){
-        id.presence=false;
-        notify();
+    public synchronized void releaseTable(TablePerson id) {
+
+        id.presence = false;
+        notifyAll();
     }
 
 }
