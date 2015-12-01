@@ -11,9 +11,9 @@ public class Start extends Thread {
     Table tb;
     TablePerson tp;
 
-    public Start(Diner d, int id, Table tb){
+    public Start(Diner d, int id, Table tb) {
         this.d = d;
-        this.id =id;
+        this.id = id;
         this.tb = tb;
     }
 
@@ -26,13 +26,12 @@ public class Start extends Thread {
             e.printStackTrace();
         }
 
-
         QueueA.getInstance().addDiner(d);
 
         synchronized (d) {
             while (!d.busy) {
                 try {
-                   d.wait();
+                    d.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -41,7 +40,7 @@ public class Start extends Thread {
 
         int tempTime = Timer.getInstance().getTime();
 
-        while(tempTime + 30 > Timer.getInstance().getTime()){
+        while (tempTime + 30 > Timer.getInstance().getTime()) {
             try {
                 Thread.sleep(0);
             } catch (InterruptedException e) {
@@ -49,7 +48,7 @@ public class Start extends Thread {
             }
         }
 
-        System.out.println("Diner " + d.id +" finishes eating and leaves the restaurant at " + Timer.getInstance().getTime() );
+        System.out.println("Diner " + d.id + " finishes eating and leaves the restaurant at " + Timer.getInstance().getTime());
 
         tb.releaseTable(tp);
 

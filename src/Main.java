@@ -20,6 +20,7 @@ class DinerStatus {
 public class Main {
 
     static class InputReader {
+
         File file = new File("test");
         public BufferedReader reader;
         public StringTokenizer tokenizer;
@@ -67,13 +68,13 @@ public class Main {
 
         tb.start();
 
-
-
-        Cook c;
+        Cook[] c = new Cook[noOfCooks];
+        for(int i=0;i<noOfCooks;i++){
+            c[i] = new Cook(i);
+        }
         int idx=0;
         for(int i=0 ;i < noOfCooks; i++){
-            c = new Cook(noOfCooks);
-            c.start();
+            c[i].start();
         }
 
 

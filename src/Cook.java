@@ -17,26 +17,50 @@ public class Cook extends Thread {
 
     public void run() {
         try {
-            cookIt();
+            cookIt(idx);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void cookIt() throws InterruptedException {
+    public void cookIt(int i) throws InterruptedException {
 
         while (Timer.getInstance().getTime() < 120) {
 
             Diner d = QueueA.getInstance().check();
 
             if (d.burger > 0) {
+            //    System.out.println("********************" + i);
                 try {
                     BurgerMachine.getInstance().cook(d.id, d);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            if (d.fries > 0) {
+           //     System.out.println("********************" + i);
+                try {
+                    FriesMachine.getInstance().cook(d.id, d);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (d.coke > 0) {
+                try {
+                    CokeMachine.getInstance().cook(d.id, d);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (d.icecream > 0) {
+                try {
+                    IceCreamMachine.getInstance().cook(d.id, d);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             synchronized (d) {
+
                 System.out.println("Order is complete for Diner " + d.id + " at " + Timer.getInstance().getTime());
                 d.busy = true;
                 d.notify();
@@ -44,11 +68,7 @@ public class Cook extends Thread {
 
         }
     }
-    public void makefood(Diner d) {
-
-
-        }
-    }
+}
 
 
 
