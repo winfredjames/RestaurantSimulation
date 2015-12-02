@@ -5,31 +5,21 @@ import java.util.Vector;
  */
 
 public class Cook extends Thread {
+    public int cookId;
 
-    public static int noCooks;
-    public Table tb;
-    public int idx;
-    public Vector<Diner> diner;
-    public boolean working;
-
-    public Cook(int noCooks) {
-        this.idx = idx;
+    public Cook(int i){
+        this.cookId = i;
     }
-
     public void run() {
-        try {
-            cookIt(idx);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void cookIt(int i) throws InterruptedException {
-
-
         while (Timer.getInstance().getTime() < 120) {
 
-            Diner d = QueueA.getInstance().check();
+            Diner d = null;
+            try {
+                d = QueueA.getInstance().check();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Cook " + cookId + " is processing for Diner "+ d.id +" at time " + Color.get().blue() + Timer.getInstance().getTime() + Color.get().reset());
 
             if (d.burger > 0) {
                 try {
@@ -62,12 +52,10 @@ public class Cook extends Thread {
             }
             synchronized (d) {
 
-                System.out.println("Order is complete for Diner " + d.id + " at " + Timer.getInstance().getTime());
+                System.out.println("Order is complete for Diner " + d.id + " at time " + Color.get().blue() +Timer.getInstance().getTime() + Color.get().reset());
                 d.busy = true;
                 d.notify();
             }
-
-
 
         }
     }
