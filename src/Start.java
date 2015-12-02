@@ -1,30 +1,30 @@
 import java.sql.Time;
 
-/**
- * Created by winfredjames on 11/29/15.
- */
 public class Start extends Thread {
 
     public int id;
     public Diner d;
+    int noOfDiners;
 
     Table tb;
     TablePerson tp;
 
-    public Start(Diner d, int id, Table tb) {
+    public Start(Diner d, int id, Table tb,int noOfDiners) {
         this.d = d;
         this.id = id;
         this.tb = tb;
+        this.noOfDiners=noOfDiners;
     }
 
     public synchronized void run() {
-        System.out.println("Diner  " + id + " enters the restaurant at time " + Timer.getInstance().getTime());
 
         try {
             tp = tb.setTable();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Diner " + id + " sits at time " + Color.get().blue() + Timer.getInstance().getTime() + Color.get().reset() + " at table " + tp.id);
 
         QueueA.getInstance().addDiner(d);
 
@@ -48,10 +48,11 @@ public class Start extends Thread {
             }
         }
 
-        System.out.println("Diner " + d.id + " finishes eating and leaves the restaurant at time " + Timer.getInstance().getTime());
+        System.out.println("Diner " + d.id + " finishes eating and leaves the restaurant at time " + Color.get().red() + Timer.getInstance().getTime() + Color.get().reset() );
 
         tb.releaseTable(tp);
 
+        if(id==noOfDiners)
+            System.exit(0);
     }
-
 }
