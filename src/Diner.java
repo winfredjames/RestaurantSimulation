@@ -1,6 +1,3 @@
-/**
- * Created by winfredjames on 11/27/15.
- */
 public class Diner implements Comparable<Diner> {
 
     int id;
