@@ -1,6 +1,4 @@
-/**
- * Created by winfred james on 11/29/15.
- */
+
 public class Machines {
 }
 
