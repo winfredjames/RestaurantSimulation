@@ -40,7 +40,6 @@ public class Main {
 
     }
 
-
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 
         InputReader in = new InputReader();
@@ -49,7 +48,7 @@ public class Main {
         int tempDiners = noOfDiners;
         int noOfTables = in.nextInt();
         int noOfCooks = in.nextInt();
-        int id = 0;
+        int id = 1;
         Table tb = new Table(noOfTables);
 
         while (tempDiners-- > 0) {
@@ -61,13 +60,12 @@ public class Main {
 
         Cook[] c = new Cook[noOfCooks];
         for (int i = 0; i < noOfCooks; i++) {
-            c[i] = new Cook(i);
+            c[i] = new Cook(i+1);
         }
 
         for (int i = 0; i < noOfCooks; i++) {
             c[i].start();
         }
-
 
         Timer t = Timer.getInstance();
         t.start();
@@ -75,7 +73,7 @@ public class Main {
         Start[] s = new Start[noOfDiners];
 
         for (int i = 0; i < noOfDiners; i++) {
-            s[i] = new Start(dinersInfo.get(i), dinersInfo.get(i).id, tb);
+            s[i] = new Start(dinersInfo.get(i), dinersInfo.get(i).id, tb, noOfDiners);
         }
 
         int i = 0;
@@ -84,15 +82,10 @@ public class Main {
                 s[i].start();
                 i++;
             }
-
         }
 
-        while (Timer.getInstance().getTime() < 120) {
+        while (true) {
 
         }
-
-        System.exit(0);
     }
-
-
 }
