@@ -1,7 +1,5 @@
 import java.util.PriorityQueue;
-/**
- * Created by winfredjames on 11/29/15.
- */
+
 public class QueueA {
 
     private PriorityQueue<Diner> pq;
