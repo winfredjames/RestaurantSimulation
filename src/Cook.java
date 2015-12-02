@@ -1,9 +1,5 @@
 import java.util.Vector;
 
-/**
- * Created by winfredjames on 11/29/15.
- */
-
 public class Cook extends Thread {
     public int cookId;
 
