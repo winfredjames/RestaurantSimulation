@@ -28,7 +28,7 @@ class BurgerMachine extends Thread {
             wait();
         }
         working = true;
-        System.out.println("cooking burger for " + (id) + " at time " + Timer.getInstance().getTime());
+        System.out.println("Cooking burger for " + (id) + " at time " + Color.get().blue() + Timer.getInstance().getTime() + Color.get().reset());
         int total = Timer.getInstance().getTime();
         while (total + (5 * d.burger) > Timer.getInstance().getTime()) {
             Thread.sleep(0);
@@ -62,7 +62,7 @@ class FriesMachine extends Thread {
             wait();
         }
         working = true;
-        System.out.println("cooking fries for " + (id) + " at time " + Timer.getInstance().getTime());
+        System.out.println("Cooking fries for " + (id) + " at time " + Color.get().blue() + Timer.getInstance().getTime() + Color.get().reset());
         int total = Timer.getInstance().getTime();
         while (total + (3 * d.fries) > Timer.getInstance().getTime()) {
             Thread.sleep(0);
@@ -96,7 +96,7 @@ class CokeMachine extends Thread {
             wait();
         }
         working = true;
-        System.out.println("Preparing coke for " + (id) + " at time " + Timer.getInstance().getTime());
+        System.out.println("Preparing coke for " + (id) + " at time " + Color.get().blue() +Timer.getInstance().getTime() + Color.get().reset());
         int total = Timer.getInstance().getTime();
         while (total + (2 * d.coke) > Timer.getInstance().getTime()) {
             Thread.sleep(0);
@@ -131,7 +131,7 @@ class IceCreamMachine extends Thread {
             wait();
         }
         working = true;
-        System.out.println("Preparing icecream for " + (id) + " at time " + Timer.getInstance().getTime());
+        System.out.println("Preparing ice cream for " + (id) + " at time " + Color.get().blue() + Timer.getInstance().getTime() + Color.get().reset());
         int total = Timer.getInstance().getTime();
         while (total + (d.icecream) > Timer.getInstance().getTime()) {
             Thread.sleep(0);
