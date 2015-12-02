@@ -1,7 +1,3 @@
-
-/**
- * Created by winfredjames on 11/25/15.
- */
 public class Timer extends Thread {
     private static int time = 1;
     private static Timer timer;
@@ -32,4 +28,34 @@ public class Timer extends Thread {
     public int getTime() {
         return time;
     }
+}
+
+class Color{
+
+    private static Color color;
+
+    private Color() {
+
+    }
+
+    public static Color get() {
+        if (color == null) {
+            color = new Color();
+        }
+
+        return color;
+    }
+
+    public String red() {
+        return "\u001B[31m";
+    }
+
+    public String blue() {
+        return "\u001B[34m";
+    }
+
+    public String reset(){
+        return "\u001B[0m";
+    }
+
 }
