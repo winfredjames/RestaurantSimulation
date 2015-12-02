@@ -1,7 +1,3 @@
-/**
- * Created by winfredjames on 11/26/15.
- */
-
 import java.util.*;
 
 class TablePerson {
@@ -28,19 +24,24 @@ public class Table extends Thread {
         }
     }
 
-    public boolean find() {
+    public int find() {
+        int count = 0;
         for (int i = 0; i < noOfTables; i++) {
             if (!tables[i].presence) {
-                return true;
+                count++;
             }
         }
-        return false;
+        return count;
     }
 
     public int find_no() {
+        if(find()==noOfTables && Timer.getInstance().getTime()>120){
+            System.exit(0);
+        }
         for (int i = 0; i < noOfTables; i++) {
-            if (!tables[i].presence) {
+            if (!tables[i].presence && Timer.getInstance().getTime()<120) {
                 tables[i].presence = true;
+                tables[i].id=i+1;
                 return i;
             }
         }
@@ -57,9 +58,9 @@ public class Table extends Thread {
         return tables[idx];
     }
 
-    public synchronized void releaseTable(TablePerson id) {
+    public synchronized void releaseTable(TablePerson tp) {
 
-        id.presence = false;
+        tp.presence = false;
         notifyAll();
     }
 
