@@ -1,3 +1,7 @@
+/**
+ * Created by winfredjames on 11/26/15.
+ */
+
 import java.util.*;
 
 class TablePerson {
@@ -10,9 +14,9 @@ class TablePerson {
     }
 }
 
-public class Table extends Thread {
+public class Table  {
 
-    public static TablePerson[] tables;
+    public  TablePerson[] tables;
     public int noOfTables;
 
     public Table(int noOfTables) {
@@ -27,7 +31,7 @@ public class Table extends Thread {
     public int find() {
         int count = 0;
         for (int i = 0; i < noOfTables; i++) {
-            if (!tables[i].presence) {
+            if (tables[i].presence) {
                 count++;
             }
         }
@@ -35,11 +39,9 @@ public class Table extends Thread {
     }
 
     public int find_no() {
-        if(find()==noOfTables && Timer.getInstance().getTime()>120){
-            System.exit(0);
-        }
+
         for (int i = 0; i < noOfTables; i++) {
-            if (!tables[i].presence && Timer.getInstance().getTime()<120) {
+            if (!tables[i].presence && Timer.getInstance().getTime()<500) {
                 tables[i].presence = true;
                 tables[i].id=i+1;
                 return i;
@@ -48,7 +50,8 @@ public class Table extends Thread {
         return -1;
     }
 
-    public synchronized TablePerson setTable() throws InterruptedException {
+    public synchronized TablePerson setTable(int id) throws InterruptedException {
+
         int idx = find_no();
 
         while (idx == -1) {
