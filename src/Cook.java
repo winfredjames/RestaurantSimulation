@@ -7,7 +7,7 @@ public class Cook extends Thread {
         this.cookId = i;
     }
     public void run() {
-        while (Timer.getInstance().getTime() < 120) {
+        while (true) {
 
             Diner d = null;
             try {
