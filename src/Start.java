@@ -51,8 +51,5 @@ public class Start extends Thread {
         System.out.println("Diner " + d.id + " finishes eating and leaves the restaurant at time " + Color.get().red() + Timer.getInstance().getTime() + Color.get().reset() );
 
         tb.releaseTable(tp);
-
-        if(id==noOfDiners)
-            System.exit(0);
     }
 }
