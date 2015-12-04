@@ -81,8 +81,13 @@ public class Main {
             }
         }
 
-        while (true) {
+      
+        int exit=tb.find();
 
+        while (exit!=0) {
+            exit=tb.find();
         }
+
+        System.exit(0);
     }
 }
