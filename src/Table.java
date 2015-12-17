@@ -50,7 +50,7 @@ public class Table  {
         return -1;
     }
 
-    public synchronized TablePerson setTable(int id) throws InterruptedException {
+    public synchronized TablePerson setTable() throws InterruptedException {
 
         int idx = find_no();
 
