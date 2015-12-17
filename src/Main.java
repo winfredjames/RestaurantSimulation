@@ -53,8 +53,6 @@ public class Main {
 
         }
 
-        tb.start();
-
         Cook[] c = new Cook[noOfCooks];
         for (int i = 0; i < noOfCooks; i++) {
             c[i] = new Cook(i+1);
